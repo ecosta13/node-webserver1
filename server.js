@@ -2,6 +2,10 @@ const express = require('express');
 const hbs =  require('hbs');
 
 const fs = require('fs');
+
+// the PORT env is set by heroku
+// otherwise use the default  3000
+const port = process.env.PORT || 3000;
 var app = express();
 
 hbs.registerPartials(__dirname +'/views/partials');
@@ -52,7 +56,9 @@ app.get('/about',(req,res) => {
     pageTitle: 'About Page1'
   });
 });
-app.listen(3000);
+app.listen(port, () => {
+  console.log(`Server is up on port ${port}`);
+});
 app.get('/bad', (req,res) => {
   // res.send('<h1>Express is Listening ...</h1>');
   res.send({
